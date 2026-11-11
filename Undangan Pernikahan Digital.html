@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Aulia & Ariel</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        editorial: {
+                            bg: '#FDFBF7',
+                            card: '#F7F3EC',
+                            dark: '#111111',
+                            accent: '#C5A880',
+                            gold: '#D4AF37',
+                            muted: '#666666'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #111111;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-editorial-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A880;
+        }
+
+        /* Toast Animation */
+        .toast-show {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Audio Control Pulse */
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(197, 168, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); }
+        }
+        .audio-pulse {
+            animation: pulse-border 2s infinite;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- AUDIO ELEMENT (Background Music) -->
+    <!-- Sound source: Royalty Free Romantic Piano Track -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-piano-112630.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FLOATING AUDIO CONTROLLER -->
+    <button id="audio-control" onclick="toggleAudio()" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-editorial-dark text-editorial-bg flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 hidden border border-editorial-accent audio-pulse" title="Mute/Unmute Music">
+        <i id="audio-icon" class="fas fa-music text-lg"></i>
+    </button>
+
+    <!-- TOAST NOTIFICATION FOR COPY -->
+    <div id="toast" class="fixed top-6 right-6 z-50 bg-editorial-dark text-editorial-bg px-6 py-3 rounded-none shadow-2xl transition-all duration-300 opacity-0 transform -translate-y-4 pointer-events-none flex items-center gap-3 border-l-2 border-editorial-accent">
+        <i class="fas fa-check text-editorial-accent"></i>
+        <span id="toast-message" class="text-xs uppercase tracking-widest font-light">Nomor Rekening Berhasil Disalin!</span>
+    </div>
+
+    <!-- COVER OVERLAY (HERO OPENING) -->
+    <div id="cover-overlay" class="fixed inset-0 z-50 bg-editorial-bg flex flex-col justify-between p-6 md:p-12 transition-all duration-1000">
+        <!-- Top Metadata -->
+        <div class="flex justify-between items-start border-b border-editorial-dark/10 pb-4">
+            <div>
+                <p class="text-[10px] tracking-[0.3em] uppercase font-semibold text-editorial-muted">Issue No. 01</p>
+                <p class="text-[10px] tracking-[0.3em] uppercase font-semibold text-editorial-muted">Official Invitation</p>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] tracking-[0.3em] uppercase font-semibold text-editorial-dark">01 . 01 . 2027</p>
+                <p class="text-[10px] tracking-[0.3em] uppercase font-semibold text-editorial-muted">Gedung Diponegoro</p>
+            </div>
+        </div>
+
+        <!-- Middle Big Editorial Title -->
+        <div class="my-auto py-8 text-center md:text-left">
+            <p class="text-xs uppercase tracking-[0.4em] font-medium text-editorial-accent mb-4" data-aos="fade-down">The Wedding Of</p>
+            <h1 class="font-editorial-title text-5xl sm:text-7xl md:text-9xl lg:text-[11rem] uppercase tracking-tight text-editorial-dark mb-4 leading-none" data-aos="fade-up">
+                Aulia <span class="font-serif italic font-normal text-editorial-accent">&amp;</span> Ariel
+            </h1>
+            <p class="text-xs md:text-sm tracking-[0.25em] uppercase font-light text-editorial-muted max-w-xl" data-aos="fade-up" data-aos-delay="200">
+                A celebration of love, union, and timeless commitment.
+            </p>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="border-t border-editorial-dark/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="text-[11px] uppercase tracking-widest text-editorial-muted">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <h3 class="text-lg font-serif italic text-editorial-dark font-semibold">Tamu Undangan Spesial</h3>
+            </div>
+            <button onclick="openInvitation()" class="w-full md:w-auto px-10 py-4 bg-editorial-dark text-editorial-bg uppercase tracking-[0.3em] text-xs hover:bg-editorial-accent transition-colors duration-300 flex items-center justify-center gap-3 group border border-editorial-dark">
+                <span>Buka Undangan</span>
+                <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (HIDDEN INITIALLY OR BEHIND OVERLAY) -->
+    <main id="main-content" class="min-h-screen">
+        
+        <!-- HEADER / NAVIGATION (MINIMALIST EDITORIAL) -->
+        <header class="sticky top-0 z-30 bg-editorial-bg/90 backdrop-blur-md border-b border-editorial-dark/10 px-6 py-4 flex justify-between items-center">
+            <span class="font-serif italic text-xl font-bold tracking-wider">A &amp; A</span>
+            <div class="text-[10px] tracking-[0.3em] uppercase font-semibold text-editorial-muted hidden md:block">
+                01.01.2027 — Gedung Diponegoro
+            </div>
+            <a href="#rsvp" class="text-[10px] uppercase tracking-[0.25em] font-semibold border-b border-editorial-dark pb-0.5 hover:text-editorial-accent hover:border-editorial-accent transition-colors">RSVP Now</a>
+        </header>
+
+        <!-- HERO EDITORIAL SECTION -->
+        <section class="relative px-6 py-16 md:py-24 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8">
+                    <p class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold mb-3" data-aos="fade-right">Volume I — Jan 2027</p>
+                    <h2 class="font-editorial-title text-6xl md:text-8xl lg:text-[9rem] text-editorial-dark uppercase leading-none mb-6" data-aos="fade-right" data-aos-delay="100">
+                        THE CELEBRATION
+                    </h2>
+                </div>
+                <div class="lg:col-span-4" data-aos="fade-left">
+                    <p class="text-sm font-light leading-relaxed text-editorial-muted border-l border-editorial-accent pl-4 italic">
+                        "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari mejsenismu sendiri, supaya kamu merasa tenteram kepadanya."
+                        <span class="block mt-2 text-xs uppercase tracking-widest not-italic font-semibold text-editorial-dark">— Ar-Rum: 21</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-12 relative w-full h-[60vh] md:h-[75vh] overflow-hidden" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80" alt="Editorial Prewedding Main" class="w-full h-full object-cover filter grayscale contrast-125 hover:grayscale-0 transition-all duration-1000">
+                <div class="absolute bottom-6 left-6 right-6 md:left-12 md:right-12 flex justify-between items-end text-white mix-blend-difference">
+                    <div>
+                        <span class="text-[10px] tracking-[0.3em] uppercase block">Bride &amp; Groom</span>
+                        <span class="font-serif italic text-2xl md:text-4xl">Aulia Ul Maghfiroh &amp; Ariel Ardiansyah</span>
+                    </div>
+                    <span class="text-xs tracking-widest uppercase hidden md:inline">Editorial Edition</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUPLE PROFILE SECTION -->
+        <section class="py-20 bg-editorial-card border-y border-editorial-dark/10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold">The Protagonists</span>
+                    <h2 class="font-serif text-4xl md:text-6xl font-light text-editorial-dark mt-2">Mempelai Wanita &amp; Pria</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
+                    
+                    <!-- MEMPELAI WANITA -->
+                    <div class="space-y-6 text-center md:text-left" data-aos="fade-right">
+                        <div class="relative w-full aspect-[3/4] overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80" alt="Aulia Ul Maghfiroh" class="w-full h-full object-cover grayscale contrast-110 group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 border border-editorial-dark/20 m-4 pointer-events-none"></div>
+                        </div>
+                        <div>
+                            <span class="text-xs uppercase tracking-[0.3em] text-editorial-accent font-medium">The Bride</span>
+                            <h3 class="font-serif text-3xl md:text-4xl font-normal text-editorial-dark mt-1">Aulia Ul Maghfiroh</h3>
+                            <p class="text-xs text-editorial-muted mt-2 font-light">Putri dari Bapak Fulan &amp; Ibu Fulanah</p>
+                            <p class="text-sm font-light text-editorial-muted mt-4 max-w-md mx-auto md:mx-0">
+                                Sosok yang penuh kehangatan, keanggunan, dan senyum yang menceriakan setiap langkah menuju mahligai rumah tangga.
+                            </p>
+                            <div class="mt-6">
+                                <a href="https://instagram.com" target="_blank" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-editorial-dark pb-1 hover:text-editorial-accent hover:border-editorial-accent transition-colors">
+                                    <i class="fab fa-instagram"></i> @aulia.maghfiroh
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEMPELAI PRIA -->
+                    <div class="space-y-6 text-center md:text-left" data-aos="fade-left">
+                        <div class="relative w-full aspect-[3/4] overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1000&q=80" alt="Ariel Ardiansyah" class="w-full h-full object-cover grayscale contrast-110 group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 border border-editorial-dark/20 m-4 pointer-events-none"></div>
+                        </div>
+                        <div>
+                            <span class="text-xs uppercase tracking-[0.3em] text-editorial-accent font-medium">The Groom</span>
+                            <h3 class="font-serif text-3xl md:text-4xl font-normal text-editorial-dark mt-1">Ariel Ardiansyah</h3>
+                            <p class="text-xs text-editorial-muted mt-2 font-light">Putra dari Bapak Fulan &amp; Ibu Fulanah</p>
+                            <p class="text-sm font-light text-editorial-muted mt-4 max-w-md mx-auto md:mx-0">
+                                Pria penuh komitmen dan dedikasi yang siap melangkah menjadi pelindung serta pendamping setia selamanya.
+                            </p>
+                            <div class="mt-6">
+                                <a href="https://instagram.com" target="_blank" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-editorial-dark pb-1 hover:text-editorial-accent hover:border-editorial-accent transition-colors">
+                                    <i class="fab fa-instagram"></i> @ariel.ardiansyah
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN TIMER SECTION -->
+        <section class="py-20 px-6 bg-editorial-dark text-editorial-bg relative overflow-hidden">
+            <div class="max-w-6xl mx-auto text-center" data-aos="fade-up">
+                <span class="text-xs uppercase tracking-[0.5em] text-editorial-accent font-medium block mb-4">Counting Down To The Day</span>
+                <h2 class="font-editorial-title text-4xl sm:text-6xl md:text-7xl uppercase mb-12 tracking-wider">01 Januari 2027</h2>
+
+                <!-- TIMER GRID -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
+                    <div class="p-6 border border-editorial-bg/20 bg-editorial-dark/50 backdrop-blur">
+                        <span id="days" class="font-serif text-5xl md:text-7xl font-light text-editorial-accent block mb-2">00</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-editorial-bg/60">Hari</span>
+                    </div>
+                    <div class="p-6 border border-editorial-bg/20 bg-editorial-dark/50 backdrop-blur">
+                        <span id="hours" class="font-serif text-5xl md:text-7xl font-light text-editorial-accent block mb-2">00</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-editorial-bg/60">Jam</span>
+                    </div>
+                    <div class="p-6 border border-editorial-bg/20 bg-editorial-dark/50 backdrop-blur">
+                        <span id="minutes" class="font-serif text-5xl md:text-7xl font-light text-editorial-accent block mb-2">00</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-editorial-bg/60">Menit</span>
+                    </div>
+                    <div class="p-6 border border-editorial-bg/20 bg-editorial-dark/50 backdrop-blur">
+                        <span id="seconds" class="font-serif text-5xl md:text-7xl font-light text-editorial-accent block mb-2">00</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] text-editorial-bg/60">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENT DETAILS & MAPS SECTION -->
+        <section class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold">Save The Date</span>
+                <h2 class="font-serif text-4xl md:text-6xl text-editorial-dark mt-2">Waktu &amp; Lokasi Acara</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- AKAD NIKAH -->
+                <div class="p-10 border border-editorial-dark/10 bg-editorial-card flex flex-col justify-between" data-aos="fade-right">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs uppercase tracking-[0.3em] text-editorial-accent font-bold">Session 01</span>
+                            <i class="fas fa-ring text-xl text-editorial-accent"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl font-normal text-editorial-dark mb-4">Akad Nikah</h3>
+                        <p class="text-sm text-editorial-muted font-light leading-relaxed mb-6">
+                            Momen sakral pengucapan janji suci di hadapan Allah SWT dan para saksi.
+                        </p>
+                    </div>
+                    <div class="space-y-3 border-t border-editorial-dark/10 pt-6">
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="far fa-calendar text-editorial-accent"></i>
+                            <span>Jumat, 01 Januari 2027</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="far fa-clock text-editorial-accent"></i>
+                            <span>10.00 WIB - Selesai</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="fas fa-map-marker-alt text-editorial-accent"></i>
+                            <span>Gedung Diponegoro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESEPSI NIKAH -->
+                <div class="p-10 border border-editorial-dark/10 bg-editorial-card flex flex-col justify-between" data-aos="fade-left">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs uppercase tracking-[0.3em] text-editorial-accent font-bold">Session 02</span>
+                            <i class="fas fa-glass-cheers text-xl text-editorial-accent"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl font-normal text-editorial-dark mb-4">Resepsi Pernikahan</h3>
+                        <p class="text-sm text-editorial-muted font-light leading-relaxed mb-6">
+                            Perayaan kebahagiaan dan ramah tamah bersama keluarga dan sahabat terkasih.
+                        </p>
+                    </div>
+                    <div class="space-y-3 border-t border-editorial-dark/10 pt-6">
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="far fa-calendar text-editorial-accent"></i>
+                            <span>Jumat, 01 Januari 2027</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="far fa-clock text-editorial-accent"></i>
+                            <span>11.00 WIB - Selesai</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-editorial-dark">
+                            <i class="fas fa-map-marker-alt text-editorial-accent"></i>
+                            <span>Gedung Diponegoro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAPS BUTTON & EMBED CONTAINER -->
+            <div class="p-8 border border-editorial-dark/10 bg-editorial-card text-center" data-aos="fade-up">
+                <h4 class="font-serif text-2xl mb-2">Petunjuk Lokasi Acara</h4>
+                <p class="text-xs text-editorial-muted uppercase tracking-widest mb-6">Gedung Diponegoro — Tempat Pelaksanaan</p>
+                
+                <div class="w-full h-80 mb-6 relative overflow-hidden border border-editorial-dark/10">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.45266835017!2d106.8458!3d-6.2038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMTMuNyJTIDEwNsKwNTAnNDQuOSJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid" class="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <a href="https://maps.google.com/?q=Gedung+Diponegoro" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-[0.3em] hover:bg-editorial-accent transition-colors duration-300">
+                    <i class="fas fa-directions text-sm"></i>
+                    <span>Buka Petunjuk Arah Google Maps</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- GALLERY PREWEDDING (EDITORIAL MASONRY LOOK) -->
+        <section class="py-24 bg-editorial-card border-y border-editorial-dark/10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16" data-aos="fade-up">
+                    <div>
+                        <span class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold">Visual Journal</span>
+                        <h2 class="font-editorial-title text-5xl md:text-7xl uppercase text-editorial-dark mt-2">Galeri Foto</h2>
+                    </div>
+                    <p class="text-xs tracking-widest uppercase text-editorial-muted mt-4 md:mt-0">Captured Moments of Romance</p>
+                </div>
+
+                <!-- MASONRY GRID -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="space-y-6">
+                        <div class="overflow-hidden relative group" data-aos="fade-up">
+                            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" alt="Prewedding 1" class="w-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="overflow-hidden relative group" data-aos="fade-up" data-aos-delay="100">
+                            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Prewedding 2" class="w-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="overflow-hidden relative group" data-aos="fade-up" data-aos-delay="200">
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" alt="Prewedding 3" class="w-full h-[500px] object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="overflow-hidden relative group" data-aos="fade-up" data-aos-delay="300">
+                            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80" alt="Prewedding 4" class="w-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <div class="overflow-hidden relative group" data-aos="fade-up" data-aos-delay="400">
+                            <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=800&q=80" alt="Prewedding 5" class="w-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIGITAL GIFT / AMPLOP DIGITAL SECTION -->
+        <section class="py-24 px-6 max-w-5xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold">Love Gift</span>
+                <h2 class="font-serif text-4xl md:text-6xl text-editorial-dark mt-2">Amplop Digital</h2>
+                <p class="text-sm font-light text-editorial-muted mt-4 max-w-lg mx-auto">
+                    Doa restu Anda merupakan hadiah terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, Anda dapat menyalurkannya melalui:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <!-- REKENING BANK BCA -->
+                <div class="p-8 border border-editorial-dark/10 bg-editorial-card space-y-6" data-aos="fade-right">
+                    <div class="flex justify-between items-center">
+                        <span class="font-serif italic text-2xl font-bold tracking-wider">BCA</span>
+                        <i class="fas fa-credit-card text-editorial-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-editorial-muted">Nomor Rekening</p>
+                        <p id="bca-account" class="font-mono text-2xl text-editorial-dark font-semibold mt-1">1234 5678 90</p>
+                        <p class="text-xs text-editorial-muted mt-1">a.n. Aulia Ul Maghfiroh</p>
+                    </div>
+                    <button onclick="copyToClipboard('1234567890', 'BCA')" class="w-full py-3 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-[0.25em] hover:bg-editorial-accent transition-colors flex items-center justify-center gap-2">
+                        <i class="far fa-copy"></i>
+                        <span>Salin No. Rekening</span>
+                    </button>
+                </div>
+
+                <!-- REKENING BANK MANDIRI -->
+                <div class="p-8 border border-editorial-dark/10 bg-editorial-card space-y-6" data-aos="fade-left">
+                    <div class="flex justify-between items-center">
+                        <span class="font-serif italic text-2xl font-bold tracking-wider">MANDIRI</span>
+                        <i class="fas fa-university text-editorial-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-editorial-muted">Nomor Rekening</p>
+                        <p id="mandiri-account" class="font-mono text-2xl text-editorial-dark font-semibold mt-1">9876 5432 10</p>
+                        <p class="text-xs text-editorial-muted mt-1">a.n. Ariel Ardiansyah</p>
+                    </div>
+                    <button onclick="copyToClipboard('9876543210', 'Mandiri')" class="w-full py-3 bg-editorial-dark text-editorial-bg text-xs uppercase tracking-[0.25em] hover:bg-editorial-accent transition-colors flex items-center justify-center gap-2">
+                        <i class="far fa-copy"></i>
+                        <span>Salin No. Rekening</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- QRIS SECTION -->
+            <div class="mt-8 p-8 border border-editorial-dark/10 bg-editorial-card text-center max-w-xl mx-auto" data-aos="fade-up">
+                <span class="text-xs uppercase tracking-[0.3em] text-editorial-accent font-semibold block mb-2">QRIS All Payment</span>
+                <h4 class="font-serif text-2xl mb-4">Pindai QRIS Tanda Kasih</h4>
+                <div class="w-48 h-48 mx-auto bg-white p-3 border border-editorial-dark/10 flex items-center justify-center shadow-inner mb-4">
+                    <!-- Placeholder QRIS Code Image -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AuliaArielWeddingGift" alt="QRIS Gift" class="w-full h-full object-contain">
+                </div>
+                <p class="text-xs text-editorial-muted uppercase tracking-widest">Mendukung Gopay, OVO, ShopeePay, Dana, &amp; Mobile Banking</p>
+            </div>
+        </section>
+
+        <!-- RSVP & UCAPAN DO A SECTION -->
+        <section id="rsvp" class="py-24 bg-editorial-dark text-editorial-bg">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-xs uppercase tracking-[0.4em] text-editorial-accent font-semibold">Wishes &amp; Presence</span>
+                    <h2 class="font-serif text-4xl md:text-6xl text-editorial-bg mt-2">Konfirmasi &amp; Doa</h2>
+                    <p class="text-sm font-light text-editorial-bg/70 mt-4">
+                        Berikan doa terbaik serta konfirmasi kehadiran Anda untuk momen bahagia kami.
+                    </p>
+                </div>
+
+                <!-- RSVP FORM -->
+                <form id="rsvp-form" onsubmit="submitRSVP(event)" class="space-y-6 bg-editorial-dark/80 p-8 md:p-12 border border-editorial-bg/10 backdrop-blur mb-16" data-aos="fade-up">
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.25em] text-editorial-bg/80 mb-2 font-medium">Nama Lengkap</label>
+                        <input type="text" id="guest-name" required placeholder="Masukkan nama Anda" class="w-full bg-transparent border-b border-editorial-bg/30 px-0 py-3 text-sm text-editorial-bg focus:outline-none focus:border-editorial-accent transition-colors placeholder-editorial-bg/30">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.25em] text-editorial-bg/80 mb-2 font-medium">Konfirmasi Kehadiran</label>
+                        <select id="attendance" required class="w-full bg-editorial-dark border-b border-editorial-bg/30 px-0 py-3 text-sm text-editorial-bg focus:outline-none focus:border-editorial-accent transition-colors">
+                            <option value="Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Tidak Hadir">Maaf, Saya Tidak Bisa Hadir</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.25em] text-editorial-bg/80 mb-2 font-medium">Pesan &amp; Doa Restu</label>
+                        <textarea id="guest-message" rows="4" required placeholder="Tuliskan ucapan dan doa Anda..." class="w-full bg-transparent border-b border-editorial-bg/30 px-0 py-3 text-sm text-editorial-bg focus:outline-none focus:border-editorial-accent transition-colors placeholder-editorial-bg/30"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-editorial-accent text-editorial-dark text-xs uppercase tracking-[0.3em] font-semibold hover:bg-white transition-colors duration-300">
+                        Kirim Ucapan &amp; Konfirmasi
+                    </button>
+                </form>
+
+                <!-- LIVE COMMENTS / UCAPAN LIST -->
+                <div class="space-y-6" data-aos="fade-up">
+                    <h3 class="font-serif text-2xl text-editorial-bg border-b border-editorial-bg/10 pb-4">
+                        Doa &amp; Ucapan Sahabat (<span id="wish-count">3</span>)
+                    </h3>
+                    
+                    <div id="wishes-container" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                        
+                        <!-- MOCK COMMENT 1 -->
+                        <div class="p-6 border border-editorial-bg/10 bg-editorial-bg/5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-serif text-lg text-editorial-accent">Rian &amp; Maya</span>
+                                <span class="text-[10px] uppercase tracking-widest text-editorial-bg/40">Hadir</span>
+                            </div>
+                            <p class="text-xs font-light leading-relaxed text-editorial-bg/80">
+                                Selamat untuk Aulia dan Ariel! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Berkah selalu menyertai pernikahan kalian.
+                            </p>
+                        </div>
+
+                        <!-- MOCK COMMENT 2 -->
+                        <div class="p-6 border border-editorial-bg/10 bg-editorial-bg/5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-serif text-lg text-editorial-accent">Budi Santoso</span>
+                                <span class="text-[10px] uppercase tracking-widest text-editorial-bg/40">Hadir</span>
+                            </div>
+                            <p class="text-xs font-light leading-relaxed text-editorial-bg/80">
+                                Happy wedding bro Ariel &amp; Aulia! Turut bahagia atas pernikahan kalian. Lancar sampai hari H!
+                            </p>
+                        </div>
+
+                        <!-- MOCK COMMENT 3 -->
+                        <div class="p-6 border border-editorial-bg/10 bg-editorial-bg/5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-serif text-lg text-editorial-accent">Siti Sarah</span>
+                                <span class="text-[10px] uppercase tracking-widest text-editorial-bg/40">Tidak Hadir</span>
+                            </div>
+                            <p class="text-xs font-light leading-relaxed text-editorial-bg/80">
+                                Maaf belum bisa hadir langsung, tapi doa terbaik dari jauh untuk Aulia dan Ariel. Semoga langgeng sampai kakek nenek!
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER SECTION -->
+        <footer class="py-16 bg-editorial-bg text-center border-t border-editorial-dark/10">
+            <div class="max-w-xl mx-auto px-6 space-y-4">
+                <h2 class="font-editorial-title text-4xl uppercase tracking-widest text-editorial-dark">Aulia &amp; Ariel</h2>
+                <p class="text-xs uppercase tracking-[0.3em] text-editorial-muted">01 Januari 2027 — Gedung Diponegoro</p>
+                <div class="pt-6 border-t border-editorial-dark/10">
+                    <p class="text-[10px] uppercase tracking-widest text-editorial-muted">
+                        Digital Editorial Wedding Invitation
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize AOS Animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true
+        });
+
+        // Audio State
+        const audio = document.getElementById('bg-music');
+        const audioControl = document.getElementById('audio-control');
+        const audioIcon = document.getElementById('audio-icon');
+        let isPlaying = false;
+
+        // Open Invitation Action
+        function openInvitation() {
+            const overlay = document.getElementById('cover-overlay');
+            overlay.classList.add('-translate-y-full', 'opacity-0');
+            
+            // Show Audio Button
+            audioControl.classList.remove('hidden');
+
+            // Play Audio
+            playAudio();
+
+            // Enable Scrolling
+            document.body.style.overflow = 'auto';
+
+            // Refresh AOS
+            setTimeout(() => {
+                AOS.refresh();
+            }, 500);
+        }
+
+        // Audio Controls
+        function playAudio() {
+            audio.play().then(() => {
+                isPlaying = true;
+                audioIcon.className = "fas fa-music text-lg";
+                audioControl.classList.add('audio-pulse');
+            }).catch(error => {
+                console.log("Autoplay blocked or audio failed:", error);
+            });
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                audioIcon.className = "fas fa-volume-mute text-lg";
+                audioControl.classList.remove('audio-pulse');
+            } else {
+                audio.play();
+                isPlaying = true;
+                audioIcon.className = "fas fa-music text-lg";
+                audioControl.classList.add('audio-pulse');
+            }
+        }
+
+        // Countdown Timer Logic
+        const targetDate = new Date("2027-01-01T10:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Copy Account Number to Clipboard
+        function copyToClipboard(text, bankName) {
+            // execCommand fallback for strict iframe environments
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            showToast(`No. Rekening ${bankName} Berhasil Disalin!`);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.add('toast-show');
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+            }, 3000);
+        }
+
+        // Interactive RSVP Submission Logic
+        let wishCount = 3;
+        function submitRSVP(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('guest-name').value;
+            const status = document.getElementById('attendance').value;
+            const message = document.getElementById('guest-message').value;
+
+            if (name && message) {
+                const wishesContainer = document.getElementById('wishes-container');
+                const newWish = document.createElement('div');
+                newWish.className = "p-6 border border-editorial-bg/10 bg-editorial-bg/5 transform transition-all duration-500 hover:border-editorial-accent";
+                newWish.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-serif text-lg text-editorial-accent">${name}</span>
+                        <span class="text-[10px] uppercase tracking-widest text-editorial-bg/40">${status}</span>
+                    </div>
+                    <p class="text-xs font-light leading-relaxed text-editorial-bg/80">
+                        ${message}
+                    </p>
+                `;
+
+                wishesContainer.prepend(newWish);
+
+                // Increment Count
+                wishCount++;
+                document.getElementById('wish-count').innerText = wishCount;
+
+                // Reset Form
+                document.getElementById('rsvp-form').reset();
+                showToast("Terima Kasih! Ucapan Anda Berhasil Dikirim.");
+            }
+        }
+
+        // Lock scroll on page load until invitation is opened
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.overflow = 'hidden';
+        });
+    </script>
+</body>
+</html>
